@@ -1,0 +1,9 @@
+{
+  "name": "crashlytics-api",
+  "version": "0.0.1",
+  "description": "parse crashlytics backend",
+  "main": "index.js",
+  "repository": "git@github.com:sudhanshuraheja/crashlytics-api.git",
+  "author": "Sudhanshu Raheja <sudhanshu.raheja@go-jek.com>",
+  "license": "MIT"
+}
