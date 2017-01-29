@@ -1,7 +1,5 @@
 const _ = require('../lib/utils');
 
-console.log = jest.genMockFn(message => message);
-
 test('_.pretty', () => {
   expect(_.pretty({}))
     .toBe('{}');
