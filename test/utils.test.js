@@ -1,6 +1,8 @@
 const _ = require('../lib/utils');
 
 test('_.pretty', () => {
+  console.log = jest.fn();
+
   expect(_.pretty({}))
     .toBe('{}');
 

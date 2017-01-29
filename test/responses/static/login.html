@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html class="">
+  <head>
+    <title>Fabric</title>
+<link rel="shortcut icon" href="/fabric.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-itunes-app" content="app-id=1077938720, app-argument=/login, affiliate-data=ct=smart_banner&pt=9551">
+<link href="https://fabric.io/apple-touch-icon-fabric.png" rel="apple-touch-icon-precomposed" type="image/png" />
+
+    <script type="text/javascript">
+      RAILS_ENV = "production";
+      REVISION = "1725702a351f6316c471bbb3d178b3f613b00657";
+    </script>
+
+    <script type="text/javascript" src='https://www.google.com/recaptcha/api.js?render=explicit'></script>
+
+    <meta content="authenticity_token" name="csrf-param" />
+<meta content="bgl4Zsg1O3skIOmmb9NKiDBtCtg/wLe7mAd6n9My0Eo=" name="csrf-token" />
+
+  </head>
+  <body class="font-standard sdk">
+    <script crossorigin="anonymous" src="https://cdn-cf.fabric.io/assets/webpack/entry-vendor-styles-bddef1d4054f78266bf4.js" type="text/javascript"></script>
+    <script crossorigin="anonymous" src="https://cdn-cf.fabric.io/assets/webpack/entry-app-styles-bddef1d4054f78266bf4.js" type="text/javascript"></script>
+
+    <div id="chrome">
+      <div id="app-loader">
+      <i class="icon-fabric"></i>
+      </div>
+    </div>
+    <iframe class="hide absolute" name="downloadIFrame" src='about:blank' style="border:0;" width="0" height="0"></iframe>
+
+    <script type="text/javascript">
+      window._trackJs = {
+        enabled: true,
+        token: '4071f1202a3f4c81b39edcea1e933257',
+        application: 'www',
+        version: REVISION,
+        // Prevent tracking of 400 or greater network errors.
+        network: { error: false },
+        // Custom pre-processing handler before the error is sent to Track.js.
+        onError: function (payload, error) {
+          var fabricDomainRegex = /^https:\/\/[^\/]*fabric\.io/;
+          var stagingUrlRegex = /staging-([^\/]*)\d{4}/i;
+          // Tag any errors that occur in staging to differentiate from prod errors.
+          var matches = payload.url.match(stagingUrlRegex);
+          if (matches) {
+            payload.message = '[STAGING-' + matches[1].toUpperCase() + '] ' + payload.message;
+          }
+          // Reject any errors that:
+          // - Don't contain a stack trace
+          // - Happen anywhere outside of our code (by checking for foreign urls or unknown sources)
+          if (payload.stack) {
+            if (!payload.url || !fabricDomainRegex.test(payload.url)) {
+              return false;
+            }
+            var urlMatches = payload.stack.match(/https?:\/\/[^\/]*/g);
+            return urlMatches ? urlMatches.every(function(url){return url === 'https://cdn-cf.fabric.io'}) : false;
+          } else {
+            return false;
+          }
+        }
+      };
+    </script>
+
+    <script crossorigin="anonymous" src="https://cdn-cf.fabric.io/assets/webpack/entry-main-bddef1d4054f78266bf4.js" type="text/javascript"></script>
+
+    <noscript>
+    <div id="noscript" class="message error align-center">
+      <div class="content">
+        <h2>JavaScript disabled</h2>
+        <p>This site requires JavaScript to run. Please enable it and reload the page.</p>
+      </div>
+    </div>
+    </noscript>
+    <script>
+  if (window.require || window.define || window.CLS_ENTRY_LOADED)
+  {
+    var el = document.getElementById('app-loader');
+    if (el) el.style.display = 'block';
+  } else {
+    var message, header, paragraph;
+
+    document.body.style.margin = '8px';
+    document.body.style.backgroundColor = '#0e2845';
+
+    message = document.createElement('div');
+    message.style.background = 'rgba(0, 0, 0, 0.07)';
+    message.style.borderRadius = '10px';
+    message.style.margin = '120px auto 20px auto';
+    message.style.width = '100%';
+    message.style.maxWidth = '450px';
+    message.style.padding = '15px';
+    message.style.boxSizing = 'border-box';
+    message.style.color = '#cbd5dd';
+    message.style.fontFamily = '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif';
+    message.style.fontWeight = 300;
+    message.style.lineHeight = 1.4;
+    message.style.fontSize = '16px';
+    message.style.textAlign = 'center';
+
+    header = document.createElement('header');
+    header.style.fontSize = '24px';
+    header.style.color = 'white';
+    header.style.letterSpacing = '-0.25pt';
+    header.innerText = 'Uh oh!'
+
+    paragraph = document.createElement('p');
+        paragraph.innerHTML = 'We couldn\'t load assets! <br> Please make sure cdn-cf.fabric.io is not blocked and try again.';
+
+    message.appendChild(header);
+    message.appendChild(paragraph);
+    document.body.appendChild(message);
+  }
+</script>
+
+  </body>
+</html>
