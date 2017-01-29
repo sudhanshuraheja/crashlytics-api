@@ -2,12 +2,11 @@
 
 // Start the CLI Manager
 const program = require('commander')
+const _ = require('./utils')
 
 // Read Package.json and Config
 const pkg = require('./package.json')
 const conf = require('./fabric.json')
-
-console.log(conf.user)
 
 program
   .version(pkg.version)
@@ -15,14 +14,10 @@ program
   .parse(process.argv)
 
 // Load up the API
-let API = require("./api")
+let Fabric = require("./fabric")
 
 // TODO : Move to promises, this is sad
-let api = new API(conf.user)
-api.load(() => {
-  api.configData(() => {
-    api.login(() => {
-
-    })
-  })
+let fabric = new Fabric(conf.user)
+fabric.login((user) => {
+  _.pretty(user.organizations)
 })

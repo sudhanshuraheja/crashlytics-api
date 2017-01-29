@@ -1,37 +1,21 @@
 "use strict"
 
-let request = require('request').defaults({jar: true})
-let cheerio = require('cheerio')
-let querystring = require('querystring');
+const EventEmitter = require('events');
+const request = require('request').defaults({jar: true})
+const querystring = require('querystring');
+const Parser = require('./parser')
 
-require('request-debug')(request);
+// require('request-debug')(request);
 
-class API {
+class API extends EventEmitter {
 
   constructor(user) {
+    super()
     this.baseUrl = "https://fabric.io"
     this.csrfToken = ""
     this.developerToken = ""
     this.email = user.email
     this.password = user.password
-  }
-
-  getToken() {
-    return this.csrfToken
-  }
-
-  getDeveloperToken() {
-    return this.developerToken
-  }
-
-  getOpts(path) {
-    return {
-      url: this.url("/api/v2/client_boot/config_data"),
-      headers: {
-        'X-CSRF-Token': this.csrfToken,
-        'X-CRASHLYTICS-DEVELOPER-TOKEN': this.developerToken,
-      }
-    }
   }
 
   url(resource) {
@@ -49,7 +33,13 @@ class API {
   }
 
   configData(done) {
-    request(this.getOpts("/api/v2/client_boot/config_data"), (error, response, body) => {
+    request({
+      url: this.url("/api/v2/client_boot/config_data"),
+      headers: {
+        'X-CSRF-Token': this.csrfToken,
+        'X-CRASHLYTICS-DEVELOPER-TOKEN': this.developerToken,
+      }
+    }, (error, response, body) => {
       if (!error && response.statusCode == 200) {
         let data = JSON.parse(body)
         this.developerToken = data.developer_token
@@ -58,7 +48,7 @@ class API {
     })
   }
 
-  login(done) {
+  session(done) {
     request({
       url: this.url("/api/v2/session"),
       method: 'POST',
@@ -71,23 +61,18 @@ class API {
         'password': this.password,
       },
     }, (error, response, body) => {
-      done()
+      done(JSON.parse(body))
     })
   }
 
-}
-
-class Parser {
-
-  getCSRFToken(page) {
-    let token = ""
-    let $ = cheerio.load(page)
-    $("html head meta").each((index, element) => {
-      if( $(element).attr('name') == "csrf-token" ) {
-        token = $(element).attr('content').toString()
-      }
+  login(done) {
+    this.load(() => {
+      this.configData(() => {
+        this.session((data) => {
+          done(data)
+        })
+      })
     })
-    return token
   }
 
 }
