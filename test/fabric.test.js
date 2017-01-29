@@ -20,3 +20,6 @@ test('API.url', () => {
   expect(Fabric.url('/login'))
     .toBe('https://fabric.io/login');
 });
+
+test('API.load', () => Fabric.load()
+    .then(() => expect(Fabric.csrfToken).toBe('load')));
