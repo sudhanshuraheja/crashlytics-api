@@ -1,7 +1,5 @@
 const API = require('../lib/fabric');
 const conf = require('../fabric.json');
-const _ = require('../lib/utils');
-
 
 test('API.constructor', () => {
   const Fabric = new API({ email: 'man@site.com', password: 'booga' });

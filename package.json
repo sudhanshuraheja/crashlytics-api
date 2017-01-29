@@ -11,6 +11,7 @@
     "commander": "^2.9.0",
     "jest": "^18.1.0",
     "json-server": "^0.9.4",
+    "colors-cli": "^1.0.7",
     "request": "^2.79.0",
     "request-debug": "^0.2.0"
   },
@@ -21,7 +22,6 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
-    "colors-cli": "^1.0.7",
     "eslint": "^3.14.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-flowtype": "^2.30.0",
